@@ -38,7 +38,7 @@ services:
   {%- endif -%}{{''}}
     image: {{ nginx_proxy_le_image }}
     networks:
-      - {{ nginx_proxy_name }}
+      - {{ nginx_proxy_network }}
     restart: {{ nginx_proxy_le_restart }}
     volumes:
       - {{ nginx_proxy_docker_sock }}:/var/run/docker.sock:ro
