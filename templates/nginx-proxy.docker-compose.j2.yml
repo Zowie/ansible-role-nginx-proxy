@@ -1,8 +1,8 @@
 ---
 networks:
 
-  {{ nginx_proxy_name }}:
-    name: {{ nginx_proxy_name }}
+  {{ nginx_proxy_network }}:
+    name: {{ nginx_proxy_network }}
 
 services:
 
@@ -15,7 +15,7 @@ services:
   {%- endif -%}{{''}}
     image: {{ nginx_proxy_image }}
     networks:
-      - {{ nginx_proxy_name }}
+      - {{ nginx_proxy_network }}
     ports:
     {%- for port in nginx_proxy_ports -%}{{''}}
       - {{ port }}
