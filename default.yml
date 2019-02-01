@@ -1,0 +1,7 @@
+---
+- name: NGINX Proxy
+  hosts: all
+  roles:
+    - ansible-role-docker-python
+    - geerlingguy.docker
+    - ansible-role-nginx-proxy

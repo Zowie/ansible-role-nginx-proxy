@@ -1,0 +1,20 @@
+---
+nginx_proxy_compose_path: '/opt/docker-compose/{{ nginx_proxy_name }}'
+nginx_proxy_docker_sock: /var/run/docker.sock
+nginx_proxy_env: []
+nginx_proxy_image: jwilder/nginx-proxy:alpine
+nginx_proxy_le_env:
+  - 'NGINX_PROXY_CONTAINER={{ nginx_proxy_name }}'
+nginx_proxy_le_image: jrcs/letsencrypt-nginx-proxy-companion:stable
+nginx_proxy_le_restart: always
+nginx_proxy_name: nginx-proxy
+nginx_proxy_network: '{{ nginx_proxy_name }}'
+nginx_proxy_ports:
+  - 80:80
+  - 443:443
+nginx_proxy_restart: always
+nginx_proxy_volume_certs: '{{ nginx_proxy_name }}-certs'
+nginx_proxy_volume_conf: '{{ nginx_proxy_name }}-conf'
+nginx_proxy_volume_dhparam: '{{ nginx_proxy_name }}-dhparam'
+nginx_proxy_volume_html: '{{ nginx_proxy_name }}-html'
+nginx_proxy_volume_vhost: '{{ nginx_proxy_name }}-vhost'

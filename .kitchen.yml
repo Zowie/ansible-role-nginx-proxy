@@ -1,0 +1,43 @@
+---
+driver:
+  name: docker
+  privileged: true
+  run_options:
+    tmpfs:
+      - /run
+      - /tmp:exec
+  use_sudo: false
+  volume:
+    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    - /var/run/docker.sock:/var/run/docker.sock
+
+platforms:
+  - name: centos-7
+    driver_config:
+      image: centos:7
+      provision_command:
+        - systemctl enable sshd.service
+      run_command: /usr/sbin/init
+  - name: ubuntu-1804
+    driver_config:
+      image: ubuntu:18.04
+      provision_command:
+        - systemctl enable ssh.service
+      run_command: /sbin/init
+
+provisioner:
+  ansible_diff: true
+  ansible_verbose: true
+  ansible_version: latest
+  hosts: all
+  name: ansible_playbook
+  require_ansible_repo: true
+  # Disable default behavior to install Chef
+  require_chef_for_busser: false
+  requirements_path: requirements.yml
+
+suites:
+  - name: default
+
+verifier:
+  name: inspec

@@ -1,0 +1,15 @@
+---
+- name: 'create {{ nginx_proxy_name }} docker-compose directory'
+  file:
+    path: '{{ nginx_proxy_compose_path }}'
+    state: directory
+
+- name: 'create {{ nginx_proxy_name }} docker-compose.yml'
+  template:
+    dest: '{{ nginx_proxy_compose_path }}/docker-compose.yml'
+    src: '../templates/nginx-proxy.docker-compose.j2.yml'
+
+- name: 'run {{ nginx_proxy_name }} docker-compose service'
+  docker_service:
+    project_name: '{{ nginx_proxy_name }}'
+    project_src: '{{ nginx_proxy_compose_path }}'

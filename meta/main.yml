@@ -1,0 +1,23 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: kraut.it
+  company: kraut.it
+  description: NGINX Proxy
+  galaxy_tags:
+    - docker
+    - docker-compose
+    - letsencrypt
+    - nginx
+    - proxy
+    - server
+  license: license (MIT)
+  min_ansible_version: 2.6.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - bionic

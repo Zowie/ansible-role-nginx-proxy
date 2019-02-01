@@ -1,0 +1,9 @@
+---
+- name: restart nginx
+  docker_service:
+    project_name: '{{ nginx_proxy_name }}'
+    project_src: '{{ nginx_proxy_compose_path }}'
+    restarted: True
+    services:
+      - '{{ nginx_proxy_name }}'
+    state: present

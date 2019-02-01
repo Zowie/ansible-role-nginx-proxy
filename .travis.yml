@@ -1,0 +1,16 @@
+language: ruby
+rvm: 2.5
+
+sudo: required
+services: docker
+
+env:
+  matrix:
+    - INSTANCE=default-centos-7
+    - INSTANCE=default-ubuntu-1804
+
+# https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142455888
+before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
+
+script:
+  - bundle exec kitchen verify ${INSTANCE}

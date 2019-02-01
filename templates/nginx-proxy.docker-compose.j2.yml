@@ -1,0 +1,73 @@
+---
+networks:
+
+  {{ nginx_proxy_name }}:
+    name: {{ nginx_proxy_name }}
+
+services:
+
+  nginx:
+  {%- if nginx_proxy_env -%}{{''}}
+    environment:
+    {%- for env in nginx_proxy_env -%}{{''}}
+      - {{ env }}
+    {%- endfor -%}{{''}}
+  {%- endif -%}{{''}}
+    image: {{ nginx_proxy_image }}
+    networks:
+      - {{ nginx_proxy_name }}
+    ports:
+    {%- for port in nginx_proxy_ports -%}{{''}}
+      - {{ port }}
+    {%- endfor -%}{{''}}
+    restart: {{ nginx_proxy_restart }}
+    volumes:
+      - {{ nginx_proxy_docker_sock }}:/tmp/docker.sock:ro
+      - {{ nginx_proxy_volume_certs }}:/etc/nginx/certs:ro
+      - {{ nginx_proxy_volume_conf }}:/etc/nginx/conf.d
+      - {{ nginx_proxy_volume_dhparam }}:/etc/nginx/dhparam
+      - {{ nginx_proxy_volume_html }}:/usr/share/nginx/html
+      - {{ nginx_proxy_volume_vhost }}:/etc/nginx/vhost.d
+
+  letsencrypt:
+  {%- if nginx_proxy_le_env -%}{{''}}
+    environment:
+    {%- for env in nginx_proxy_le_env -%}{{''}}
+      - {{ env }}
+    {%- endfor -%}{{''}}
+  {%- endif -%}{{''}}
+    image: {{ nginx_proxy_le_image }}
+    networks:
+      - {{ nginx_proxy_name }}
+    restart: {{ nginx_proxy_le_restart }}
+    volumes:
+      - {{ nginx_proxy_docker_sock }}:/var/run/docker.sock:ro
+      - {{ nginx_proxy_volume_certs }}:/etc/nginx/certs:rw
+      - {{ nginx_proxy_volume_conf }}:/etc/nginx/conf.d
+      - {{ nginx_proxy_volume_html }}:/usr/share/nginx/html
+      - {{ nginx_proxy_volume_vhost }}:/etc/nginx/vhost.d
+
+version: '3.7'
+
+{%- if not nginx_proxy_volume_certs | regex_search('/')
+    or not nginx_proxy_volume_conf | regex_search('/')
+    or not nginx_proxy_volume_dhparam | regex_search('/')
+    or not nginx_proxy_html | regex_search('/')
+    or not nginx_proxy_vhost | regex_search('/') -%}{{''}}
+volumes:
+{%- if not nginx_proxy_volume_certs | regex_search('/') -%}{{''}}
+  {{ nginx_proxy_volume_certs }}:
+{%- endif -%}{{''}}
+{%- if not nginx_proxy_volume_conf | regex_search('/') -%}{{''}}
+  {{ nginx_proxy_volume_conf }}:
+{%- endif -%}{{''}}
+{%- if not nginx_proxy_volume_dhparam | regex_search('/') -%}{{''}}
+  {{ nginx_proxy_volume_dhparam }}:
+{%- endif -%}{{''}}
+{%- if not nginx_proxy_volume_html | regex_search('/') -%}{{''}}
+  {{ nginx_proxy_volume_html }}:
+{%- endif -%}{{''}}
+{%- if not nginx_proxy_volume_vhost | regex_search('/') -%}{{''}}
+  {{ nginx_proxy_volume_vhost }}:
+{%- endif -%}{{''}}
+{%- endif -%}{{''}}
