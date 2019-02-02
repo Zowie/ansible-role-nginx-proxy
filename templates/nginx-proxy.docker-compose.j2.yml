@@ -14,6 +14,8 @@ services:
     {%- endfor -%}{{''}}
   {%- endif -%}{{''}}
     image: {{ nginx_proxy_image }}
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     networks:
       - {{ nginx_proxy_network }}
     ports:

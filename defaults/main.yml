@@ -3,8 +3,7 @@ nginx_proxy_compose_path: '/opt/docker-compose/{{ nginx_proxy_name }}'
 nginx_proxy_docker_sock: /var/run/docker.sock
 nginx_proxy_env: []
 nginx_proxy_image: jwilder/nginx-proxy:alpine
-nginx_proxy_le_env:
-  - 'NGINX_PROXY_CONTAINER={{ nginx_proxy_name }}'
+nginx_proxy_le_env: []
 nginx_proxy_le_image: jrcs/letsencrypt-nginx-proxy-companion:stable
 nginx_proxy_le_restart: always
 nginx_proxy_name: nginx-proxy
