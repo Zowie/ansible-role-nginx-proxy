@@ -5,4 +5,3 @@ docker_service_state: stopped
 
 nginx_proxy_le_env:
   - ACME_CA_URI=https://acme-staging.api.letsencrypt.org/directory
-  - 'NGINX_PROXY_CONTAINER={{ nginx_proxy_name }}'
