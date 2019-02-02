@@ -29,7 +29,7 @@ services:
       - {{ nginx_proxy_volume_conf }}:/etc/nginx/conf.d
       - {{ nginx_proxy_volume_dhparam }}:/etc/nginx/dhparam
       - {{ nginx_proxy_volume_html }}:/usr/share/nginx/html
-      - {{ nginx_proxy_volume_htpasswd }}:/usr/share/nginx/htpasswd
+      - {{ nginx_proxy_volume_htpasswd }}:/etc/nginx/htpasswd
       - {{ nginx_proxy_volume_vhost }}:/etc/nginx/vhost.d
 
   letsencrypt:
