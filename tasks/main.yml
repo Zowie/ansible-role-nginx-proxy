@@ -13,3 +13,12 @@
   docker_service:
     project_name: '{{ nginx_proxy_name }}'
     project_src: '{{ nginx_proxy_compose_path }}'
+  when: docker__ansible_python_interpreter is not defined
+
+- name: 'run {{ nginx_proxy_name }} docker-compose service (using custom python interpreter)'
+  vars:
+    ansible_python_interpreter: '{{docker__ansible_python_interpreter}}'
+  docker_service:
+    project_name: '{{ nginx_proxy_name }}'
+    project_src: '{{ nginx_proxy_compose_path }}'
+  when: docker__ansible_python_interpreter is defined
