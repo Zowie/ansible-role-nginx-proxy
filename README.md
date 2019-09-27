@@ -30,3 +30,6 @@ See [requirements.yml](requirements.yml) for additional roles required for local
 bundle install
 bundle exec kitchen test
 ```
+## Notes
+
+- By default, containers are run in ``the default `bridge````` network. You can customize this through `nginx_proxy_network`
