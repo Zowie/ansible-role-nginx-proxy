@@ -1,9 +1,9 @@
 ---
+{% if nginx_proxy_network %}
 networks:
-
   {{ nginx_proxy_network }}:
     name: {{ nginx_proxy_network }}
-
+{% endif %}
 services:
 
   nginx:
@@ -16,12 +16,16 @@ services:
     image: {{ nginx_proxy_image }}
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+{% if not nginx_proxy_network %}
+    network_mode: bridge
+{% endif %}{% if nginx_proxy_network %}
     networks:
       - {{ nginx_proxy_network }}
+{% endif %}
     ports:
     {%- for port in nginx_proxy_ports -%}{{''}}
       - {{ port }}
-    {%- endfor -%}{{''}}
+{%- endfor -%}{{''}}
     restart: {{ nginx_proxy_restart }}
     volumes:
       - {{ nginx_proxy_docker_sock }}:/tmp/docker.sock:ro
@@ -40,8 +44,12 @@ services:
     {%- endfor -%}{{''}}
   {%- endif -%}{{''}}
     image: {{ nginx_proxy_le_image }}
+{% if not nginx_proxy_network %}
+    network_mode: bridge
+{% endif %}{% if nginx_proxy_network %}
     networks:
       - {{ nginx_proxy_network }}
+{% endif %}
     restart: {{ nginx_proxy_le_restart }}
     volumes:
       - {{ nginx_proxy_docker_sock }}:/var/run/docker.sock:ro

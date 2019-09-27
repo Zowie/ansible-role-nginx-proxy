@@ -7,7 +7,7 @@ nginx_proxy_le_env: []
 nginx_proxy_le_image: jrcs/letsencrypt-nginx-proxy-companion:stable
 nginx_proxy_le_restart: always
 nginx_proxy_name: nginx-proxy
-nginx_proxy_network: '{{ nginx_proxy_name }}'
+nginx_proxy_network: false
 nginx_proxy_ports:
   - 80:80
   - 443:443
